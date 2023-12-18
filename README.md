@@ -20,8 +20,8 @@
 </p>
 
 <p align="center">
-    <a href="https://arxiv.org/pdf/2312.5297737.pdf"><strong>Paper</strong></a> |
-    <a href="https://arxiv.org/abs/2312.5297737"><strong>arXiv</strong></a> |
+    <a href="https://arxiv.org/pdf/2312.09800.pdf"><strong>Paper</strong></a> |
+    <a href="https://arxiv.org/abs/2312.09800"><strong>arXiv</strong></a> |
     <a href="#citation"><strong>BibTeX</strong></a>
 </p>
 
@@ -62,7 +62,7 @@ If you find our work useful, please consider citing our paper:
 @article{klenk2023devo,
   title     = {Deep Event Visual Odometry},
   author    = {Klenk, Simon and Motzet, Marvin and Koestler, Lukas and Cremers, Daniel},
-  journal   = {arXiv preprint arXiv:2312.5297737},
+  journal   = {arXiv preprint arXiv:2312.09800},
   year      = {2023}
 }
 ```
