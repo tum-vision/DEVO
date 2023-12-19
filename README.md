@@ -35,8 +35,8 @@ Event cameras offer the exciting possibility of tracking the camera's pose durin
   <img width="80%" src="assets/devo.svg">
 </p>
 
-During training, DEVO takes event voxel grids $\{\mathbf{E}_t\}_{t=1}^N$, inverse depths $\{\mathbf{d}_t\}_{t=1}^N$, and camera poses $\{\mathbf{T}_t\}_{t=1}^N$ of a sequence of size $N$ as input.
-DEVO estimates poses $\{\hat{\mathbf{T}}_t\}_{t=1}^N$ and depths $\{\hat{\mathbf{d}}_t\}_{t=1}^N$ of the sequence.
+During training, DEVO takes event voxel grids $`\{\mathbf{E}_t\}_{t=1}^N`$, inverse depths $`\{\mathbf{d}_t\}_{t=1}^N`$, and camera poses $`\{\mathbf{T}_t\}_{t=1}^N`$ of a sequence of size $N$ as input.
+DEVO estimates poses $`\{\hat{\mathbf{T}}_t\}_{t=1}^N`$ and depths $`\{\hat{\mathbf{d}}_t\}_{t=1}^N`$ of the sequence.
 Our novel patch selection network predicts a score map $\mathbf{S}_t$ to highlight optimal 2D coordinates $\mathbf{P}_t$ for optical flow and pose estimation.
 A recurrent update operator iteratively refines the sparse patch-based optical flow $\hat{\mathbf{f}}$ between event grids by predicting $\Delta\hat{\mathbf{f}}$ and updates poses and depths through a differentiable bundle adjustment (DBA) layer, weighted by $\omega$, for each revision.
 Ground truth optical flow $\mathbf{f}$ for supervision is computed using poses and depth maps. At inference, DEVO samples from a multinomial distribution based on the pooled score map $\mathbf{S}_t$.
