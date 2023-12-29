@@ -19,6 +19,16 @@
     International Conference on 3D Vision (3DV) 2024, Davos, CH
 </p>
 
+
+<p align="center">
+    <a href="[https://www.youtube.com/watch?v=rP_OuOE-O34]([https://www.youtube.com/watch?v=rP_OuOE-O34](https://www.youtube.com/watch?v=rP_OuOE-O34))">
+        <img src="./assets/devo-youtube.png" alt="DEVO" width="600px"/>
+    </a>
+   <br>
+   <a href="https://www.youtube.com/watch?v=rP_OuOE-O34">Watch on YouTube</a>
+</p>
+
+
 <p align="center">
     <a href="https://arxiv.org/pdf/2312.09800.pdf"><strong>Paper</strong></a> |
     <a href="https://arxiv.org/abs/2312.09800"><strong>arXiv</strong></a> |
