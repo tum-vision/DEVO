@@ -1,0 +1,9 @@
+HKU_aggressive_translation
+HKU_aggressive_rotation
+HKU_aggressive_small_flip
+hku_aggressive_walk
+HKU_HDR_circle
+HKU_HDR_slow
+hku_hdr_tran_rota
+hku_hdr_agg
+hku_dark_normal

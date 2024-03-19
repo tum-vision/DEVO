@@ -42,7 +42,7 @@ Event cameras offer the exciting possibility of tracking the camera's pose durin
 
 ## Overview
 <p align="center">
-  <img width="80%" src="assets/devo.svg">
+  <img width="90%" src="assets/devo.svg">
 </p>
 
 During training, DEVO takes event voxel grids $`\{\mathbf{E}_t\}_{t=1}^N`$, inverse depths $`\{\mathbf{d}_t\}_{t=1}^N`$, and camera poses $`\{\mathbf{T}_t\}_{t=1}^N`$ of a sequence of size $N$ as input.
@@ -53,20 +53,86 @@ Ground truth optical flow $\mathbf{f}$ for supervision is computed using poses a
 
 
 ## Setup
+The code was tested on Ubuntu 22.04 and CUDA Toolkit 11.x. We use Anaconda to manage our Python environment.
+
+First, clone the repo
+```bash
+git clone https://github.com/tum-vision/DEVO.git --recursive
+cd DEVO
+```
+Then, create and activate the Anaconda environment
+```bash
+conda env create -f environment.yml
+conda activate devo
+```
+
+Next, install the DEVO package
+```bash
+wget https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.zip
+unzip eigen-3.4.0.zip -d thirdparty
+
+# install DEVO
+pip install .
+```
+
+### Only for Training
+Please note, the training data have the size of about 1.1TB (rbg: 300GB, evs: 370GB).
+
+First, download all RGB images and depth maps of [TartanAir](https://theairlab.org/tartanair-dataset/) from the left camera (~500GB) to `<TARTANPATH>`
+```bash
+python thirdparty/tartanair_tools/download_training.py --output-dir <TARTANPATH> --rgb --depth --only-left
+```
+
+Next, generate event voxel grids using [vid2e](https://github.com/uzh-rpg/rpg_vid2e)
+```bash
+python # TODO release simulation
+```
+
+We provide scene infomation (including frame graph for co-visability used by clip sampling). (Building dataset is expensive).
+```bash
+# download data (~450MB)
+./download_data.sh
+```
+
+### Only for Evalution
+We provide a pretrained model for our simulated event data
+
+```bash
+# download model (~40MB)
+./download_model.sh
+```
 
 
 ## Training
+Make sure you have run `./download_data.sh`. Your directory structure should look as follows
 
+```
+├── datasets
+    ├── TartanAirEvs
+        ├── abandonedfactory
+        ├── abandonedfactory_night
+        ├── ...
+        ├── westerndesert
+    ...
+```
+
+To train (log files will be written to `runs/<your name>`). Model will be run on the validation split every 10k iterations
+```bash
+python train.py -c="config/DEVO_base.conf" --name=<your name>
+```
 
 ## Evaluation
+```bash
+python evals/eval_evs/eval_XXX_evs.py --datapath=<path to xxx dataset> --weights="DEVO.pth" --stride=1 --trials=1 --expname=<your name>
+```
 
-
-## Changelog
-- [ ] 📣 Code and model will be released soon.
+## News
+- [x] Code and model are released.
+- [] TODO Release code for simulation
 
 
 ## Citation
-If you find our work useful, please consider citing our paper:
+If you find our work useful, please cite our paper:
 
 ```bib
 @article{klenk2023devo,
@@ -79,9 +145,10 @@ If you find our work useful, please consider citing our paper:
 
 
 ## Acknowledgments
-We thank the authors of the following repositories for publicly releasing their code:
+We thank the authors of the following repositories for publicly releasing their work:
 
 - [DPVO](https://github.com/princeton-vl/DPVO)
+- [TartanAir](https://github.com/castacks/tartanair_tools)
 - [vid2e](https://github.com/uzh-rpg/rpg_vid2e)
 - [E2Calib](https://github.com/uzh-rpg/e2calib)
 - [rpg_trajectory_evaluation](https://github.com/uzh-rpg/rpg_trajectory_evaluation)

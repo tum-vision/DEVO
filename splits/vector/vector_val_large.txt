@@ -1,0 +1,6 @@
+corridors_walk
+corridors_dolly
+units_scooter
+units_dolly
+school_dolly
+school_scooter

@@ -1,0 +1,8 @@
+bin
+boxes1
+desk1
+monitor1
+boxes2
+desk2
+monitor2
+reader

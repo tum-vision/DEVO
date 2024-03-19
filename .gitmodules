@@ -1,0 +1,6 @@
+[submodule "thirdparty/tartanair_tools"]
+	path = thirdparty/tartanair_tools
+	url = https://github.com/castacks/tartanair_tools.git
+[submodule "thirdparty/rpg_trajectory_evaluation"]
+	path = thirdparty/rpg_trajectory_evaluation
+	url = https://github.com/uzh-rpg/rpg_trajectory_evaluation.git

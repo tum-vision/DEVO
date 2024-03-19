@@ -1,0 +1,9 @@
+00_peanuts_dark
+01_peanuts_light
+02_rocket_earth_light
+03_rocket_earth_dark
+06_ziggy_and_fuzz
+07_ziggy_and_fuzz_hdr
+08_peanuts_running
+09_ziggy_flying_pieces
+11_all_characters

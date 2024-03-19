@@ -1,0 +1,17 @@
+corner_slow
+robot_normal
+robot_fast
+desk_normal
+desk_fast
+sofa_normal
+sofa_fast
+mountain_normal
+mountain_fast
+hdr_normal
+hdr_fast
+corridors_walk
+corridors_dolly
+units_scooter
+units_dolly
+school_dolly
+school_scooter
