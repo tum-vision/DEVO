@@ -75,6 +75,9 @@ unzip eigen-3.4.0.zip -d thirdparty
 pip install .
 ```
 
+## Data Preprocessing
+Check ```scripts/pp_DATASETNAME.py``` for the way to pre-process the original datasets. This will create the necessary files for you, e.g. ``rectify_map.h5``, ``calib_undist.json`` and ``t_offset_us.txt``.  
+
 ### Only for Training
 Please note, the training data have the size of about 1.1TB (rbg: 300GB, evs: 370GB).
 
