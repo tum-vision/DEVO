@@ -31,7 +31,7 @@
 <p align="center">
     <a href="https://arxiv.org/pdf/2312.09800"><strong>Paper (arXiv)</strong></a> |
     <a href="https://www.youtube.com/watch?v=rP_OuOE-O34"><strong>Video</strong></a> |
-    <a href="https://drive.google.com/file/d/1-u_rW03HvtYhjPT6pm1JBhTTPWxGdVWP/view?usp=sharing"><strong>Poster</strong> </a> |
+    <a href="https://drive.google.com/file/d/1-u_rW03HvtYhjPT6pm1JBhTTPWxGdVWP/view?usp=sharing"><strong>Poster</strong></a> |
     <a href="#citation"><strong>BibTeX</strong></a>
 </p>
 
