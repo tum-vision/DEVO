@@ -29,7 +29,7 @@
 
 
 <p align="center">
-    <a href="https://arxiv.org/pdf/2312.09800"><strong>Paper (arXiv)</strong></a> |
+    <a href="https://arxiv.org/abs/2312.09800"><strong>Paper (arXiv)</strong></a> |
     <a href="https://www.youtube.com/watch?v=rP_OuOE-O34"><strong>Video</strong></a> |
     <a href="https://drive.google.com/file/d/1-u_rW03HvtYhjPT6pm1JBhTTPWxGdVWP/view?usp=sharing"><strong>Poster</strong></a> |
     <a href="#citation"><strong>BibTeX</strong></a>
@@ -68,6 +68,7 @@ conda activate devo
 
 Next, install the DEVO package
 ```bash
+# download and unzip Eigen source code
 wget https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.zip
 unzip eigen-3.4.0.zip -d thirdparty
 
@@ -75,74 +76,81 @@ unzip eigen-3.4.0.zip -d thirdparty
 pip install .
 ```
 
-## Data Preprocessing
-Check ```scripts/pp_DATASETNAME.py``` for the way to pre-process the original datasets. This will create the necessary files for you, e.g. ``rectify_map.h5``, ``calib_undist.json`` and ``t_offset_us.txt``.  
-
 ### Only for Training
-Please note, the training data have the size of about 1.1TB (rbg: 300GB, evs: 370GB).
+*The following steps are only needed if you intend to (re)train DEVO. Please note, the training data have the size of about 1.1TB (rbg: 300GB, evs: 370GB).*
+
+*Otherwise, skip it and go to [here](#only-for-evalution).*
 
 First, download all RGB images and depth maps of [TartanAir](https://theairlab.org/tartanair-dataset/) from the left camera (~500GB) to `<TARTANPATH>`
 ```bash
 python thirdparty/tartanair_tools/download_training.py --output-dir <TARTANPATH> --rgb --depth --only-left
 ```
 
-Next, generate event voxel grids using [vid2e](https://github.com/uzh-rpg/rpg_vid2e)
+Next, generate event voxel grids using [vid2e](https://github.com/uzh-rpg/rpg_vid2e).
 ```bash
-python # TODO release simulation
+python scripts/convert_tartan.py --dirsfile <path to .txt file>
 ```
+`dirsfile` expects a .txt file containing line-separated paths to dirs with .png images (to generate events for these images).
 
-We provide scene infomation (including frame graph for co-visability used by clip sampling). (Building dataset is expensive).
-```bash
-# download data (~450MB)
-./download_data.sh
-```
 
 ### Only for Evalution
-We provide a pretrained model for our simulated event data
+We provide a pretrained model for our simulated event data.
 
 ```bash
 # download model (~40MB)
 ./download_model.sh
 ```
 
+#### Data Preprocessing
+We evaluate DEVO on seven real-world event-based datasets ([FPV](https://fpv.ifi.uzh.ch/), [VECtor](https://star-datasets.github.io/vector/), [HKU](https://github.com/arclab-hku/Event_based_VO-VIO-SLAM?tab=readme-ov-file#data-sequence), [EDS](https://rpg.ifi.uzh.ch/eds.html), [RPG](https://rpg.ifi.uzh.ch/ECCV18_stereo_davis.html), [MVSEC](https://daniilidis-group.github.io/mvsec/), [TUM-VIE](https://cvg.cit.tum.de/data/datasets/visual-inertial-event-dataset)). We provide scripts for data preprocessing (undist, ...).
+
+Check `scripts/pp_DATASETNAME.py` for the way to preprocess the original datasets. This will create the necessary files for you, e.g. `rectify_map.h5`, `calib_undist.json` and `t_offset_us.txt`.  
+
 
 ## Training
-Make sure you have run `./download_data.sh`. Your directory structure should look as follows
+Make sure you have run the [following steps](#only-for-training). Your dataset directory structure should look as follows
 
 ```
-├── datasets
-    ├── TartanAirEvs
-        ├── abandonedfactory
-        ├── abandonedfactory_night
-        ├── ...
-        ├── westerndesert
-    ...
+├── <TARTANPATH>
+    ├── abandonedfactory
+    ├── abandonedfactory_night
+    ├── ...
+    ├── westerndesert
 ```
 
-To train (log files will be written to `runs/<your name>`). Model will be run on the validation split every 10k iterations
+To train DEVO with the default configuration, run
 ```bash
 python train.py -c="config/DEVO_base.conf" --name=<your name>
 ```
 
+The log files will be written to `runs/<your name>`. Please, check [`train.py`](train.py) for more options.
+
 ## Evaluation
+Make sure you have run the [following steps](#only-for-evalution) (downloading pretrained model, data and preprocessing data).
+
 ```bash
-python evals/eval_evs/eval_XXX_evs.py --datapath=<path to xxx dataset> --weights="DEVO.pth" --stride=1 --trials=1 --expname=<your name>
+python evals/eval_evs/eval_DATASETNAME_evs.py --datapath=<DATASETPATH> --weights="DEVO.pth" --stride=1 --trials=1 --expname=<your name>
 ```
+
+The qualitative and quantitative results will be written to `results/DATASETNAME/<your name>`. Check [`eval_rpg_evs.py`](evals/eval_evs/eval_rpg_evs.py) for more options.
 
 ## News
 - [x] Code and model are released.
-- [] TODO Release code for simulation
+- [x] Code for simulation is released.
 
 
 ## Citation
 If you find our work useful, please cite our paper:
 
 ```bib
-@article{klenk2023devo,
+@inproceedings{klenk2023devo,
   title     = {Deep Event Visual Odometry},
   author    = {Klenk, Simon and Motzet, Marvin and Koestler, Lukas and Cremers, Daniel},
-  journal   = {arXiv preprint arXiv:2312.09800},
-  year      = {2023}
+  booktitle = {International Conference on 3D Vision, 3DV 2024, Davos, Switzerland,
+               March 18-21, 2024},
+  pages     = {739--749},
+  publisher = {{IEEE}},
+  year      = {2024},
 }
 ```
 
